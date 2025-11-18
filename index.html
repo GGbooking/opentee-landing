@@ -318,16 +318,7 @@
             const form = document.getElementById('waitlistForm');
             const successMessage = document.getElementById('successMessage');
             
-            // Here you would send to your email capture service
-            console.log('Email submitted:', email);
-            
-            // Show success message and hide form
-            form.style.display = 'none';
-            successMessage.style.display = 'block';
-            
-            // Optional: Send to external service
-            // Uncomment and configure when ready:
-            /*
+            // Send to Zapier
             fetch('https://hooks.zapier.com/hooks/catch/25408849/uzyzr9f/', {
                 method: 'POST',
                 headers: {
@@ -337,14 +328,15 @@
             })
             .then(response => response.json())
             .then(data => {
+                console.log('Success:', data);
                 form.style.display = 'none';
                 successMessage.style.display = 'block';
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Something went wrong. Please try again.');
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
             });
-            */
         });
     </script>
 </body>
