@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenTee - Smarter Tee Time Booking</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --evergreen: #04392E;
+            --golden-hour: #BDFA7C;
+            --light-lime: #F1FFDD;
+            --golf-white: #FAF9F7;
+            --shadow-black: #0D0D0D;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--evergreen);
+            color: var(--golf-white);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated gradient background */
+        .gradient-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                rgba(4, 57, 46, 0.95) 0%,
+                rgba(13, 13, 13, 0.85) 50%,
+                rgba(4, 57, 46, 0.95) 100%
+            );
+            animation: gradientShift 15s ease infinite;
+            z-index: 1;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 0.9; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Main container */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 600px;
+            width: 90%;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        /* Eyebrow label */
+        .eyebrow {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--golden-hour);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        /* Logo */
+        .brand {
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease 0.1s both;
+        }
+
+        .brand svg {
+            width: 100%;
+            max-width: 450px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Tagline */
+        .tagline {
+            font-family: 'Neue Haas Grotesk Display', 'Inter', sans-serif;
+            font-size: 3.125rem;
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--golf-white);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.01em;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        /* Supporting text */
+        .supporting-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.375rem;
+            font-weight: 400;
+            line-height: 1.6;
+            color: var(--light-lime);
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+
+        /* Form container */
+        .waitlist-form {
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 0;
+            margin-bottom: 1.5rem;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .input-group:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 24px rgba(189, 250, 124, 0.15);
+        }
+
+        input[type="email"] {
+            flex: 1;
+            padding: 20px 24px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 400;
+            border: 1px solid rgba(241, 255, 221, 0.2);
+            background: rgba(250, 249, 247, 0.05);
+            color: var(--golf-white);
+            outline: none;
+            transition: all 0.3s ease;
+            border-right: none;
+        }
+
+        input[type="email"]::placeholder {
+            color: rgba(241, 255, 221, 0.5);
+            font-weight: 400;
+        }
+
+        input[type="email"]:focus {
+            background: rgba(250, 249, 247, 0.08);
+            border-color: var(--golden-hour);
+        }
+
+        button[type="submit"] {
+            padding: 20px 40px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 500;
+            background: var(--golden-hour);
+            color: var(--evergreen);
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        button[type="submit"]:hover {
+            background: #D4FB9E;
+        }
+
+        button[type="submit"]:active {
+            transform: scale(0.98);
+        }
+
+        /* Privacy text */
+        .privacy-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.125rem;
+            color: rgba(241, 255, 221, 0.7);
+            font-weight: 400;
+            letter-spacing: 0;
+        }
+
+        /* Success state */
+        .success-message {
+            display: none;
+            padding: 20px;
+            background: rgba(189, 250, 124, 0.1);
+            border: 1px solid var(--golden-hour);
+            border-radius: 6px;
+            color: var(--golden-hour);
+            font-weight: 500;
+            font-size: 1.125rem;
+            margin-top: 2rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            .eyebrow {
+                font-size: 0.75rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .brand svg {
+                max-width: 280px;
+            }
+
+            .tagline {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            .supporting-text {
+                font-size: 1.125rem;
+                margin-bottom: 2.5rem;
+            }
+
+            .input-group {
+                flex-direction: column;
+                border-radius: 6px;
+            }
+
+            input[type="email"] {
+                border-right: 1px solid rgba(241, 255, 221, 0.2);
+                border-bottom: none;
+                border-radius: 6px 6px 0 0;
+                font-size: 1rem;
+                padding: 18px 20px;
+            }
+
+            button[type="submit"] {
+                border-radius: 0 0 6px 6px;
+                padding: 18px 24px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background layers -->
+    <div class="gradient-overlay"></div>
+
+    <!-- Main content -->
+    <div class="container">
+        <div class="eyebrow">Early Access</div>
+        
+        <div class="brand">
+            <svg width="100%" height="auto" viewBox="0 0 1000 329" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M245.375 98.9245L240.093 113.736C255.539 101.607 276.66 93.4673 295.559 102.952C323.326 116.888 319.429 158.889 308.94 182.89C307.026 187.271 304.369 191.363 302.507 195.764C321.073 189.224 336.96 175.992 347.152 159.204C350.981 152.896 353.285 146.097 356.891 139.841C369.029 118.788 394.477 100.556 419.137 98.9225C465.77 95.8354 476.372 149.321 439.657 172.376C421.392 183.846 399.43 185.32 378.381 185.205C377.017 185.197 375.813 184.124 374.98 185.438C382.529 207.263 409.039 210.611 430.412 204.96L430.409 204.964L430.431 204.955C431.899 204.566 433.342 204.133 434.754 203.663L434.752 203.665C434.752 203.665 435.881 203.337 437.813 202.556C441.123 201.275 444.216 199.782 446.965 198.104C447.631 197.697 448.254 197.25 448.9 196.824C461.598 188.914 479.965 172.819 491.541 141.965C491.547 141.95 491.552 141.935 491.557 141.92C493.671 137.486 495.674 132.778 497.519 127.759C497.606 127.618 497.692 127.474 497.779 127.334L498.605 124.8C499.787 121.396 500.811 118.241 501.707 115.291L506.985 99.1061H533.079C537.775 99.1061 531.641 111.508 532.423 112.494C560.072 87.2291 608.658 89.8328 603.186 137.12C601.46 152.042 587.314 178.162 587.479 190.841C587.592 199.451 594.096 203.132 602.054 201.631C609.16 200.291 614.175 194.238 619.971 189.175C624.422 194.395 631.932 203.133 635.971 208.011C617.199 229.58 571.539 244.698 560.11 208.623C551.993 183 572.95 159.813 573.931 137.202C574.152 132.129 572.553 126.818 567.267 125.139C551.357 120.087 525.69 150.274 516.567 161.579L494.942 227.636H466.841L466.512 223.572L469.954 212.447C466.076 215.793 461.801 218.959 457.012 221.916C421.951 243.558 361.285 239.096 349.042 193.648C326.086 214.071 296.945 229.13 266.193 233.263C245.217 236.084 216.486 235.058 202.475 216.929L161.081 329.001L158.984 328.218L158.913 328.408L135.811 319.575L184.794 184.384C196.276 153.787 207.34 123.024 218.374 92.277L245.375 98.9245ZM597.663 49.7858C599.605 47.063 646.784 -16.5757 784.676 7.86394C834.852 16.7579 870.753 15.9655 892.032 13.7341C914.963 11.3302 926.261 6.78979 926.4 6.73308L937.484 32.9997C935.387 33.8939 885.087 54.6175 779.705 35.9382C779.319 35.8697 778.93 35.8019 778.54 35.7341C770.399 48.6171 751.046 80.0201 733.147 114.924C719.591 141.357 688.931 205.602 696.973 231.22L669.786 239.764C661.425 213.13 673.892 167.968 707.899 101.701C722.39 73.4632 737.492 47.9288 747.422 31.7634C717.863 29.4211 683.957 31.0309 654.602 43.4333C630.639 53.5576 620.857 66.3541 620.762 66.4821L620.858 66.3493L597.663 49.7858ZM938.907 98.8952C986.315 95.7172 996.774 149.239 959.994 172.386C941.808 183.832 919.674 185.318 898.707 185.204C897.343 185.196 896.139 184.124 895.306 185.438C904.427 212.271 936.314 213.585 958.247 201.862C967.222 197.065 974.241 189.832 981.695 183.106L1000 197.672C979.454 225.034 946.83 241.728 912.12 234.23C893.221 230.148 876.331 216.866 870.957 197.882C870.106 197.69 869.877 198.177 869.357 198.659C866.362 201.438 863.414 205.813 860.388 208.736C845.067 223.539 825.067 233.317 803.544 234.419C718.339 238.778 717.998 134.585 786.671 104.814C814.755 92.6391 854.387 99.8983 851.913 137.278C849.196 178.329 800.888 185.38 768.589 185.204C767.225 185.196 766.022 184.125 765.189 185.438C774.812 213.383 811.934 211.03 833.041 198.308C857.109 183.801 864.05 162.836 877.034 140.186C889.068 119.194 914.237 100.549 938.907 98.8952ZM116.679 0.145192C155.317 -1.78015 175.02 15.8137 184.744 30.9108C200.178 54.8755 201.858 89.3212 189.471 127.905C170.841 185.938 121.346 231.401 74.3416 233.658C70.7855 233.828 67.2893 233.765 63.8728 233.476C42.7626 231.691 24.6223 221.275 13.0945 203.995C-0.753112 183.238 -3.73294 155.628 4.70488 126.25C12.1101 100.465 31.7039 78.8149 43.0945 67.9098L27.5164 44.6149C29.5227 42.8807 77.1114 2.11657 116.679 0.145192ZM287.541 162.538C291.52 147.874 292.489 124.564 271.186 126.069C253.263 127.336 231.322 147.066 222.413 161.939C218.131 169.087 215.979 177.222 212.819 184.905C215.865 201.987 229.977 209.602 246.544 206.722C267.298 203.115 282.333 181.729 287.541 162.538ZM162.952 49.068C152.155 32.3054 132.169 29.6692 117.305 30.4118C91.9746 31.6746 56.4474 57.5445 44.0896 68.0534L60.615 90.4372C45.2279 105.05 34.1384 121.313 30.1912 135.057C24.5288 154.773 26.1038 172.666 34.6248 185.439C42.8905 197.829 56.7919 204.206 73.7596 203.388C110.323 201.634 149.242 164.967 164.288 118.098C173.405 89.7012 172.917 64.5412 162.952 49.068ZM434.751 135.142C434.922 122.929 417.415 125.891 410.127 128.541C395.019 134.033 381.535 147.927 376.023 162.947C393.713 163.799 434.413 159.195 434.751 135.142ZM824.96 135.142C825.131 122.929 807.624 125.892 800.336 128.541C785.228 134.033 771.744 147.927 766.232 162.947C783.922 163.799 824.622 159.194 824.96 135.142ZM944.739 125.918C925.407 124.324 901.992 145.128 896.349 162.947C911.931 163.136 937.919 160.988 949.238 148.924C956.497 141.187 958.717 127.07 944.739 125.918Z" fill="white"/>
+            </svg>
+        </div>
+        
+        <h2 class="tagline">
+            Be the first to book smarter tee times.
+        </h2>
+
+        <p class="supporting-text">
+            Join our early access waitlist.
+        </p>
+
+        <form class="waitlist-form" id="waitlistForm">
+            <div class="input-group">
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    placeholder="Enter your email" 
+                    required
+                    autocomplete="email"
+                >
+                <button type="submit">Join Waitlist</button>
+            </div>
+            
+            <p class="privacy-text">
+                No spam. Just a heads-up when we're ready to launch.
+            </p>
+        </form>
+
+        <div class="success-message" id="successMessage">
+            ✓ You're on the list! We'll be in touch soon.
+        </div>
+    </div>
+
+    <script>
+        // Form submission handler
+        document.getElementById('waitlistForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const form = document.getElementById('waitlistForm');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Here you would send to your email capture service
+            console.log('Email submitted:', email);
+            
+            // Show success message and hide form
+            form.style.display = 'none';
+            successMessage.style.display = 'block';
+            
+            // Optional: Send to external service
+            // Uncomment and configure when ready:
+            /*
+            fetch('YOUR_WEBHOOK_URL_HERE', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Something went wrong. Please try again.');
+            });
+            */
+        });
+    </script>
+</body>
+</html>
