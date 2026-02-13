@@ -753,7 +753,6 @@
             // Send to Zapier as JSON so fields are parsed individually
             fetch('https://hooks.zapier.com/hooks/catch/25408849/uzyzr9f/', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
                     email: email, 
                     courses: courses.join(', ') 
