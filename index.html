@@ -740,7 +740,7 @@
 
         renderCourses();
 
-        // ─── Form submission (updated to include courses) ───
+        // ─── Form submission ───
         document.getElementById('waitlistForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -750,14 +750,14 @@
             const successMessage = document.getElementById('successMessage');
             const successCourses = document.getElementById('successCourses');
             
-            // Send to Zapier using FormData to avoid CORS
-            const formData = new FormData();
-            formData.append('email', email);
-            formData.append('courses', courses.join(', '));
-            
+            // Send to Zapier as JSON so fields are parsed individually
             fetch('https://hooks.zapier.com/hooks/catch/25408849/uzyzr9f/', {
                 method: 'POST',
-                body: formData
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    email: email, 
+                    courses: courses.join(', ') 
+                })
             })
             .then(response => {
                 console.log('Success:', response);
