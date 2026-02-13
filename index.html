@@ -227,6 +227,261 @@
             margin-top: 2rem;
         }
 
+        .success-courses {
+            margin-top: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: rgba(241, 255, 221, 0.7);
+        }
+
+        /* ─── Course Selection (NEW) ─── */
+        .course-select-wrapper {
+            position: relative;
+            width: 100%;
+            margin-bottom: 12px;
+            animation: fadeInUp 0.8s ease 0.35s both;
+        }
+
+        .course-select-trigger {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(250, 249, 247, 0.05);
+            border: 1px solid rgba(241, 255, 221, 0.2);
+            border-radius: 6px;
+            padding: 20px 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .course-select-trigger:hover {
+            border-color: rgba(241, 255, 221, 0.35);
+        }
+
+        .course-select-trigger.active {
+            border-color: var(--golden-hour);
+            background: rgba(250, 249, 247, 0.08);
+            border-radius: 6px 6px 0 0;
+        }
+
+        .trigger-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: rgba(241, 255, 221, 0.5);
+            transition: color 0.3s ease;
+        }
+
+        .trigger-text.has-selection {
+            color: var(--golf-white);
+        }
+
+        .trigger-chevron {
+            width: 18px;
+            height: 18px;
+            color: rgba(241, 255, 221, 0.5);
+            transition: transform 0.25s ease;
+            flex-shrink: 0;
+        }
+
+        .course-select-trigger.active .trigger-chevron {
+            transform: rotate(180deg);
+        }
+
+        /* Selected courses pills */
+        .selected-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 12px;
+            justify-content: center;
+        }
+
+        .selected-pills:empty {
+            display: none;
+            margin-bottom: 0;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(189, 250, 124, 0.12);
+            border: 1px solid rgba(189, 250, 124, 0.25);
+            border-radius: 20px;
+            padding: 5px 12px 5px 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--golden-hour);
+            cursor: pointer;
+            transition: background 0.2s ease;
+            animation: pillIn 0.2s ease;
+        }
+
+        .pill:hover {
+            background: rgba(189, 250, 124, 0.22);
+        }
+
+        .pill-x {
+            font-size: 0.625rem;
+            opacity: 0.7;
+            line-height: 1;
+        }
+
+        @keyframes pillIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Dropdown panel */
+        .course-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #052B22;
+            border: 1px solid var(--golden-hour);
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+            max-height: 0;
+            overflow: hidden;
+            z-index: 100;
+            transition: max-height 0.3s ease, opacity 0.2s ease;
+            opacity: 0;
+        }
+
+        .course-dropdown.open {
+            max-height: 280px;
+            opacity: 1;
+            overflow-y: auto;
+        }
+
+        .course-dropdown::-webkit-scrollbar {
+            width: 6px;
+        }
+        .course-dropdown::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .course-dropdown::-webkit-scrollbar-thumb {
+            background: rgba(241, 255, 221, 0.15);
+            border-radius: 3px;
+        }
+        .course-dropdown::-webkit-scrollbar-thumb:hover {
+            background: rgba(241, 255, 221, 0.3);
+        }
+
+        /* Search inside dropdown */
+        .dropdown-search {
+            position: sticky;
+            top: 0;
+            background: #052B22;
+            padding: 10px 14px;
+            border-bottom: 1px solid rgba(241, 255, 221, 0.08);
+            z-index: 2;
+        }
+
+        .dropdown-search input {
+            width: 100%;
+            background: rgba(241, 255, 221, 0.05);
+            border: 1px solid rgba(241, 255, 221, 0.12);
+            border-radius: 4px;
+            padding: 10px 12px 10px 34px;
+            color: var(--golf-white);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .dropdown-search input::placeholder {
+            color: rgba(241, 255, 221, 0.4);
+        }
+
+        .dropdown-search input:focus {
+            border-color: var(--golden-hour);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 26px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 14px;
+            height: 14px;
+            color: rgba(241, 255, 221, 0.4);
+            pointer-events: none;
+        }
+
+        /* Course options */
+        .course-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 14px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            color: rgba(241, 255, 221, 0.7);
+            border-bottom: 1px solid rgba(241, 255, 221, 0.04);
+            text-align: left;
+        }
+
+        .course-option:last-child {
+            border-bottom: none;
+        }
+
+        .course-option:hover {
+            background: rgba(189, 250, 124, 0.06);
+            color: var(--golf-white);
+        }
+
+        .course-option.selected {
+            color: var(--golden-hour);
+            background: rgba(189, 250, 124, 0.08);
+        }
+
+        .option-checkbox {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+            border: 1.5px solid rgba(241, 255, 221, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .course-option.selected .option-checkbox {
+            background: var(--golden-hour);
+            border-color: var(--golden-hour);
+        }
+
+        .option-check {
+            width: 10px;
+            height: 10px;
+            color: var(--evergreen);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.2s ease;
+        }
+
+        .course-option.selected .option-check {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .no-results {
+            padding: 20px 14px;
+            text-align: center;
+            color: rgba(241, 255, 221, 0.4);
+            font-size: 0.875rem;
+        }
+
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -282,6 +537,14 @@
                 padding: 18px 24px;
                 font-size: 1rem;
             }
+
+            .course-select-trigger {
+                padding: 18px 20px;
+            }
+
+            .trigger-text {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -304,10 +567,33 @@
         </h2>
 
         <p class="supporting-text">
-            Join our early access waitlist.
+            Select your favorite Austin courses and join the early access waitlist.
         </p>
 
         <form class="waitlist-form" id="waitlistForm">
+            <!-- Course Selection (NEW) -->
+            <div class="course-select-wrapper" id="courseSelectWrapper">
+                <div class="course-select-trigger" id="courseTrigger" role="button" aria-expanded="false" aria-haspopup="listbox" tabindex="0">
+                    <span class="trigger-text" id="triggerText">Select your favorite courses</span>
+                    <svg class="trigger-chevron" viewBox="0 0 16 16" fill="none">
+                        <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="course-dropdown" id="courseDropdown" role="listbox" aria-multiselectable="true">
+                    <div class="dropdown-search">
+                        <svg class="search-icon" viewBox="0 0 16 16" fill="none">
+                            <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/>
+                            <path d="M11 11L14 14" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                        </svg>
+                        <input type="text" id="courseSearch" placeholder="Search courses..." autocomplete="off">
+                    </div>
+                    <div id="courseList"></div>
+                </div>
+            </div>
+
+            <!-- Selected pills (NEW) -->
+            <div class="selected-pills" id="selectedPills"></div>
+
             <div class="input-group">
                 <input 
                     type="email" 
@@ -327,20 +613,147 @@
 
         <div class="success-message" id="successMessage">
             ✓ You're on the list! We'll be in touch soon.
+            <div class="success-courses" id="successCourses"></div>
         </div>
     </div>
 
     <script>
+        // ─── Course Data ───
+        const COURSES = [
+            "Avery Ranch Golf Club",
+            "Blackhawk Golf Club",
+            "Blue Lake Golf Club",
+            "Colo Vista Country Club",
+            "Cowan Creek Golf Club",
+            "Crystal Falls Golf Course",
+            "Delaware Springs Golf Course",
+            "Double J Ranch Golf Club",
+            "Falconhead Golf Club",
+            "Forest Creek Golf Club",
+            "Grey Rock Golf Club",
+            "Harvey Penick Golf Campus",
+            "Hidden Falls Golf Club",
+            "Kissing Tree Golf Club",
+            "Lago Vista Golf Course",
+            "Legacy Hills Golf Club",
+            "Legends Golf Course and Villas",
+            "Lighthouse Country Club",
+            "Lost Pines Golf Club",
+            "Mill Creek Country Club",
+            "Mustang Creek Golf Course",
+            "Pine Forest Golf Club",
+            "Plum Creek Golf Course",
+            "Point Venture Golf Club",
+            "Riverside Golf Course",
+            "Shadowglen Golf Club",
+            "Star Ranch Golf Club",
+            "Stonetree Golf Club",
+            "Teravista Golf Club",
+            "White Wing Golf Club"
+        ];
+
+        let selectedCourses = new Set();
+        let dropdownOpen = false;
+
+        const courseTrigger = document.getElementById('courseTrigger');
+        const courseDropdown = document.getElementById('courseDropdown');
+        const courseList = document.getElementById('courseList');
+        const courseSearch = document.getElementById('courseSearch');
+        const triggerText = document.getElementById('triggerText');
+        const selectedPills = document.getElementById('selectedPills');
+        const courseSelectWrapper = document.getElementById('courseSelectWrapper');
+
+        function renderCourses(filter = '') {
+            const normalizedFilter = filter.toLowerCase();
+            const filtered = COURSES.filter(c => c.toLowerCase().includes(normalizedFilter));
+
+            if (filtered.length === 0) {
+                courseList.innerHTML = '<div class="no-results">No courses found</div>';
+                return;
+            }
+
+            courseList.innerHTML = filtered.map(course => {
+                const isSelected = selectedCourses.has(course);
+                return `
+                    <div class="course-option ${isSelected ? 'selected' : ''}" 
+                         role="option" aria-selected="${isSelected}" data-course="${course}">
+                        <div class="option-checkbox">
+                            <svg class="option-check" viewBox="0 0 12 12" fill="none">
+                                <path d="M2.5 6L5 8.5L9.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <span>${course}</span>
+                    </div>
+                `;
+            }).join('');
+
+            courseList.querySelectorAll('.course-option').forEach(option => {
+                option.addEventListener('click', () => toggleCourse(option.dataset.course));
+            });
+        }
+
+        function toggleCourse(course) {
+            selectedCourses.has(course) ? selectedCourses.delete(course) : selectedCourses.add(course);
+            updateUI();
+        }
+
+        function updateUI() {
+            const count = selectedCourses.size;
+            triggerText.textContent = count === 0 ? 'Select your favorite courses' : `${count} course${count > 1 ? 's' : ''} selected`;
+            triggerText.classList.toggle('has-selection', count > 0);
+
+            selectedPills.innerHTML = Array.from(selectedCourses).map(course => `
+                <span class="pill" data-course="${course}">${course}<span class="pill-x"> ✕</span></span>
+            `).join('');
+
+            selectedPills.querySelectorAll('.pill').forEach(pill => {
+                pill.addEventListener('click', () => toggleCourse(pill.dataset.course));
+            });
+
+            renderCourses(courseSearch.value);
+        }
+
+        function openDropdown() {
+            dropdownOpen = true;
+            courseDropdown.classList.add('open');
+            courseTrigger.classList.add('active');
+            courseTrigger.setAttribute('aria-expanded', 'true');
+            setTimeout(() => courseSearch.focus(), 100);
+        }
+
+        function closeDropdown() {
+            dropdownOpen = false;
+            courseDropdown.classList.remove('open');
+            courseTrigger.classList.remove('active');
+            courseTrigger.setAttribute('aria-expanded', 'false');
+            courseSearch.value = '';
+            renderCourses();
+        }
+
+        courseTrigger.addEventListener('click', () => dropdownOpen ? closeDropdown() : openDropdown());
+        courseTrigger.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dropdownOpen ? closeDropdown() : openDropdown(); }
+        });
+        courseSearch.addEventListener('input', (e) => renderCourses(e.target.value));
+        document.addEventListener('click', (e) => { if (!courseSelectWrapper.contains(e.target) && dropdownOpen) closeDropdown(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && dropdownOpen) closeDropdown(); });
+
+        renderCourses();
+
+        // ─── Form submission (updated to include courses) ───
         document.getElementById('waitlistForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const email = document.getElementById('email').value;
+            const courses = Array.from(selectedCourses);
             const form = document.getElementById('waitlistForm');
             const successMessage = document.getElementById('successMessage');
+            const successCourses = document.getElementById('successCourses');
             
             // Send to Zapier using FormData to avoid CORS
             const formData = new FormData();
             formData.append('email', email);
+            formData.append('courses', courses.join(', '));
             
             fetch('https://hooks.zapier.com/hooks/catch/25408849/uzyzr9f/', {
                 method: 'POST',
@@ -350,12 +763,17 @@
                 console.log('Success:', response);
                 form.style.display = 'none';
                 successMessage.style.display = 'block';
+                if (courses.length > 0) {
+                    successCourses.textContent = 'Tracking interest for: ' + courses.join(', ');
+                }
             })
             .catch(error => {
                 console.log('Error (but showing success anyway):', error);
-                // Still show success to user even if there's a CORS error
                 form.style.display = 'none';
                 successMessage.style.display = 'block';
+                if (courses.length > 0) {
+                    successCourses.textContent = 'Tracking interest for: ' + courses.join(', ');
+                }
             });
         });
     </script>
