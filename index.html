@@ -297,6 +297,8 @@
             gap: 6px;
             margin-bottom: 12px;
             justify-content: center;
+            position: relative;
+            z-index: 1;
         }
 
         .selected-pills:empty {
@@ -348,7 +350,7 @@
             border-radius: 0 0 6px 6px;
             max-height: 0;
             overflow: hidden;
-            z-index: 100;
+            z-index: 200;
             transition: max-height 0.3s ease, opacity 0.2s ease;
             opacity: 0;
         }
@@ -654,6 +656,7 @@
 
         let selectedCourses = new Set();
         let dropdownOpen = false;
+        let ignoreNextClose = false;  // ← NEW: flag to prevent close on course click
 
         const courseTrigger = document.getElementById('courseTrigger');
         const courseDropdown = document.getElementById('courseDropdown');
@@ -687,9 +690,11 @@
                 `;
             }).join('');
 
+            // ← CHANGED: use mousedown instead of click, and set flag
             courseList.querySelectorAll('.course-option').forEach(option => {
-                option.addEventListener('click', (e) => {
-                    e.stopPropagation();
+                option.addEventListener('mousedown', (e) => {
+                    e.preventDefault();       // prevent focus shift
+                    ignoreNextClose = true;    // tell document listener to skip
                     toggleCourse(option.dataset.course);
                 });
             });
@@ -725,6 +730,11 @@
         }
 
         function closeDropdown() {
+            // ← CHANGED: check the flag before closing
+            if (ignoreNextClose) {
+                ignoreNextClose = false;
+                return;
+            }
             dropdownOpen = false;
             courseDropdown.classList.remove('open');
             courseTrigger.classList.remove('active');
@@ -738,7 +748,8 @@
             if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dropdownOpen ? closeDropdown() : openDropdown(); }
         });
         courseSearch.addEventListener('input', (e) => renderCourses(e.target.value));
-        document.addEventListener('mousedown', (e) => { if (!courseSelectWrapper.contains(e.target) && dropdownOpen) closeDropdown(); });
+        // ← CHANGED: back to click (not mousedown) for outside-click detection
+        document.addEventListener('click', (e) => { if (!courseSelectWrapper.contains(e.target) && dropdownOpen) closeDropdown(); });
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && dropdownOpen) closeDropdown(); });
 
         renderCourses();
