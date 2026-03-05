@@ -738,7 +738,7 @@
             if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dropdownOpen ? closeDropdown() : openDropdown(); }
         });
         courseSearch.addEventListener('input', (e) => renderCourses(e.target.value));
-        document.addEventListener('click', (e) => { if (!courseSelectWrapper.contains(e.target) && dropdownOpen) closeDropdown(); });
+        document.addEventListener('mousedown', (e) => { if (!courseSelectWrapper.contains(e.target) && dropdownOpen) closeDropdown(); });
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && dropdownOpen) closeDropdown(); });
 
         renderCourses();
