@@ -58,7 +58,6 @@
             overflow-x: hidden;
         }
 
-        /* Animated gradient background */
         .gradient-overlay {
             position: fixed;
             top: 0;
@@ -80,7 +79,6 @@
             50% { opacity: 0.7; }
         }
 
-        /* Main container */
         .container {
             position: relative;
             z-index: 10;
@@ -90,7 +88,6 @@
             text-align: center;
         }
 
-        /* Eyebrow label */
         .eyebrow {
             font-family: 'Inter', sans-serif;
             font-size: 0.875rem;
@@ -102,7 +99,6 @@
             animation: fadeInUp 0.8s ease;
         }
 
-        /* Logo */
         .brand {
             margin-bottom: 2rem;
             animation: fadeInUp 0.8s ease 0.1s both;
@@ -116,7 +112,6 @@
             margin: 0 auto;
         }
 
-        /* Tagline */
         .tagline {
             font-family: 'Neue Haas Grotesk Display', 'Inter', sans-serif;
             font-size: 3.125rem;
@@ -128,7 +123,6 @@
             animation: fadeInUp 0.8s ease 0.2s both;
         }
 
-        /* Supporting text */
         .supporting-text {
             font-family: 'Inter', sans-serif;
             font-size: 1.375rem;
@@ -140,7 +134,6 @@
             animation: fadeInUp 0.8s ease 0.3s both;
         }
 
-        /* Form container */
         .waitlist-form {
             animation: fadeInUp 0.8s ease 0.4s both;
         }
@@ -205,7 +198,6 @@
             transform: scale(0.98);
         }
 
-        /* Privacy text */
         .privacy-text {
             font-family: 'Inter', sans-serif;
             font-size: 1.125rem;
@@ -214,7 +206,6 @@
             letter-spacing: 0;
         }
 
-        /* Success state */
         .success-message {
             display: none;
             padding: 20px;
@@ -234,7 +225,6 @@
             color: rgba(241, 255, 221, 0.7);
         }
 
-        /* ─── Course Selection (NEW) ─── */
         .course-select-wrapper {
             position: relative;
             width: 100%;
@@ -290,20 +280,21 @@
             transform: rotate(180deg);
         }
 
-        /* Selected courses pills */
         .selected-pills {
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
             margin-bottom: 12px;
             justify-content: center;
-            position: relative;
-            z-index: 1;
         }
 
         .selected-pills:empty {
             display: none;
             margin-bottom: 0;
+        }
+
+        .selected-pills.hide-for-dropdown {
+            display: none;
         }
 
         .pill {
@@ -338,7 +329,6 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-        /* Dropdown panel */
         .course-dropdown {
             position: absolute;
             top: 100%;
@@ -350,7 +340,7 @@
             border-radius: 0 0 6px 6px;
             max-height: 0;
             overflow: hidden;
-            z-index: 200;
+            z-index: 100;
             transition: max-height 0.3s ease, opacity 0.2s ease;
             opacity: 0;
         }
@@ -375,7 +365,6 @@
             background: rgba(241, 255, 221, 0.3);
         }
 
-        /* Search inside dropdown */
         .dropdown-search {
             position: sticky;
             top: 0;
@@ -417,7 +406,6 @@
             pointer-events: none;
         }
 
-        /* Course options */
         .course-option {
             display: flex;
             align-items: center;
@@ -484,7 +472,6 @@
             font-size: 0.875rem;
         }
 
-        /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -496,7 +483,6 @@
             }
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .container {
                 padding: 40px 20px;
@@ -551,10 +537,8 @@
     </style>
 </head>
 <body>
-    <!-- Background layers -->
     <div class="gradient-overlay"></div>
 
-    <!-- Main content -->
     <div class="container">
         <div class="eyebrow">Early Access</div>
         
@@ -573,7 +557,6 @@
         </p>
 
         <form class="waitlist-form" id="waitlistForm">
-            <!-- Course Selection (NEW) -->
             <div class="course-select-wrapper" id="courseSelectWrapper">
                 <div class="course-select-trigger" id="courseTrigger" role="button" aria-expanded="false" aria-haspopup="listbox" tabindex="0">
                     <span class="trigger-text" id="triggerText">Select your favorite courses</span>
@@ -593,7 +576,6 @@
                 </div>
             </div>
 
-            <!-- Selected pills (NEW) -->
             <div class="selected-pills" id="selectedPills"></div>
 
             <div class="input-group">
@@ -620,7 +602,6 @@
     </div>
 
     <script>
-        // ─── Course Data ───
         const COURSES = [
             "Avery Ranch Golf Club",
             "Blackhawk Golf Club",
@@ -656,7 +637,7 @@
 
         let selectedCourses = new Set();
         let dropdownOpen = false;
-        let ignoreNextClose = false;  // ← NEW: flag to prevent close on course click
+        let ignoreNextClose = false;
 
         const courseTrigger = document.getElementById('courseTrigger');
         const courseDropdown = document.getElementById('courseDropdown');
@@ -690,11 +671,10 @@
                 `;
             }).join('');
 
-            // ← CHANGED: use mousedown instead of click, and set flag
             courseList.querySelectorAll('.course-option').forEach(option => {
                 option.addEventListener('mousedown', (e) => {
-                    e.preventDefault();       // prevent focus shift
-                    ignoreNextClose = true;    // tell document listener to skip
+                    e.preventDefault();
+                    ignoreNextClose = true;
                     toggleCourse(option.dataset.course);
                 });
             });
@@ -726,11 +706,11 @@
             courseDropdown.classList.add('open');
             courseTrigger.classList.add('active');
             courseTrigger.setAttribute('aria-expanded', 'true');
+            selectedPills.classList.add('hide-for-dropdown');
             setTimeout(() => courseSearch.focus(), 100);
         }
 
         function closeDropdown() {
-            // ← CHANGED: check the flag before closing
             if (ignoreNextClose) {
                 ignoreNextClose = false;
                 return;
@@ -739,6 +719,7 @@
             courseDropdown.classList.remove('open');
             courseTrigger.classList.remove('active');
             courseTrigger.setAttribute('aria-expanded', 'false');
+            selectedPills.classList.remove('hide-for-dropdown');
             courseSearch.value = '';
             renderCourses();
         }
@@ -748,13 +729,11 @@
             if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dropdownOpen ? closeDropdown() : openDropdown(); }
         });
         courseSearch.addEventListener('input', (e) => renderCourses(e.target.value));
-        // ← CHANGED: back to click (not mousedown) for outside-click detection
         document.addEventListener('click', (e) => { if (!courseSelectWrapper.contains(e.target) && dropdownOpen) closeDropdown(); });
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && dropdownOpen) closeDropdown(); });
 
         renderCourses();
 
-        // ─── Form submission ───
         document.getElementById('waitlistForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -764,7 +743,6 @@
             const successMessage = document.getElementById('successMessage');
             const successCourses = document.getElementById('successCourses');
             
-            // Send to Zapier as JSON so fields are parsed individually
             fetch('https://hooks.zapier.com/hooks/catch/25408849/uzyzr9f/', {
                 method: 'POST',
                 body: JSON.stringify({ 
