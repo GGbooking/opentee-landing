@@ -688,7 +688,10 @@
             }).join('');
 
             courseList.querySelectorAll('.course-option').forEach(option => {
-                option.addEventListener('click', () => toggleCourse(option.dataset.course));
+                option.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleCourse(option.dataset.course);
+                });
             });
         }
 
