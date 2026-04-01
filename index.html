@@ -597,13 +597,6 @@
             animation: fadeInUp 0.8s ease 0.6s both;
         }
 
-        .about-rule {
-            width: 100%;
-            height: 1px;
-            background: rgba(241, 255, 221, 0.08);
-            margin-bottom: 36px;
-        }
-
         .about-label {
             font-family: 'Inter', sans-serif;
             font-size: 0.75rem;
@@ -644,15 +637,9 @@
             z-index: 5;
             width: 100%;
             padding: 0;
+            margin-top: 24px;
             text-align: center;
             animation: fadeInUp 0.8s ease 0.7s both;
-        }
-
-        .footer-rule {
-            width: 100%;
-            height: 1px;
-            background: rgba(241, 255, 221, 0.06);
-            margin-bottom: 20px;
         }
 
         .footer-text {
@@ -688,7 +675,7 @@
         /* ── RESPONSIVE ── */
         @media (max-width: 768px) {
             .hero {
-                padding: 2px 20px 12px;
+                padding: 0px 20px 8px;
             }
 
             .credibility-block {
@@ -730,12 +717,17 @@
 
             .tagline {
                 font-size: 1.875rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .brand {
+                margin-top: 1rem;
                 margin-bottom: 0.75rem;
             }
 
             .supporting-text {
                 font-size: 1rem;
-                margin-bottom: 1.75rem;
+                margin-bottom: 1.25rem;
             }
 
             .input-group {
@@ -881,7 +873,6 @@
     <div class="snap-section">
     <div class="about-block">
         <div class="about-section">
-            <div class="about-rule"></div>
             <div class="about-label">What is OpenTee?</div>
             <div class="about-copy">
                 <p><strong>OpenTee is a tee time marketplace built for Austin golfers.</strong></p>
@@ -892,7 +883,6 @@
             </div>
         </div>
         <div class="site-footer">
-            <div class="footer-rule"></div>
             <p class="footer-text">© 2026 OpenTee Booking, Inc. All rights reserved.</p>
         </div>
     </div>
