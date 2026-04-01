@@ -63,14 +63,19 @@
             --shadow-black: #0D0D0D;
         }
 
+        html, body {
+            height: 100%;
+        }
+
+        html {
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+        }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: var(--evergreen);
             color: var(--golf-white);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: stretch;
             position: relative;
             overflow-x: hidden;
         }
@@ -96,22 +101,31 @@
             50% { opacity: 0.7; }
         }
 
-        /* ── HERO FRAME ── */
-        .hero-frame {
+        /* ── SNAP SECTIONS ── */
+        .snap-section {
             min-height: 100vh;
-            width: 100%;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            scroll-snap-align: start;
             position: relative;
             z-index: 10;
+        }
+
+        /* ── HERO FRAME (inside snap-section 1) ── */
+        .hero-frame {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         /* ── HERO ── */
         .hero {
             max-width: 600px;
             width: 90%;
-            padding: 60px 40px 48px;
+            padding: 48px 40px 28px;
             text-align: center;
         }
 
@@ -477,10 +491,9 @@
             z-index: 5;
             width: 90%;
             max-width: 600px;
-            padding: 0 40px 48px;
+            padding: 0 40px 36px;
             text-align: center;
             animation: fadeInUp 0.8s ease 0.5s both;
-            align-self: center;
         }
 
         .ngcoa-badge {
@@ -560,9 +573,8 @@
             z-index: 5;
             width: 90%;
             max-width: 600px;
-            padding: 0 40px 72px;
+            padding: 0 40px;
             animation: fadeInUp 0.8s ease 0.6s both;
-            align-self: center;
         }
 
         .about-rule {
@@ -610,10 +622,9 @@
             z-index: 5;
             width: 90%;
             max-width: 600px;
-            padding: 0 40px 48px;
+            padding: 0 40px;
             text-align: center;
             animation: fadeInUp 0.8s ease 0.7s both;
-            align-self: center;
         }
 
         .footer-rule {
@@ -664,7 +675,7 @@
             }
 
             .about-section {
-                padding: 0 20px 56px;
+                padding: 0 20px;
             }
 
             .eyebrow {
@@ -726,7 +737,8 @@
 <body>
     <div class="gradient-overlay"></div>
 
-    <!-- ── HERO ── -->
+    <!-- ── SECTION 1: HERO ── -->
+    <div class="snap-section">
     <div class="hero-frame">
     <div class="hero">
         <div class="eyebrow">Early Access</div>
@@ -821,6 +833,10 @@
         </div>
     </div>
 
+    </div><!-- end snap-section 1 -->
+
+    <!-- ── SECTION 2: ABOUT + FOOTER ── -->
+    <div class="snap-section">
     <!-- ── WHAT IS OPENTEE ── -->
     <div class="about-section">
         <div class="about-rule"></div>
@@ -1007,5 +1023,6 @@
             });
         });
     </script>
+    </div><!-- end snap-section 2 -->
 </body>
 </html>
