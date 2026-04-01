@@ -117,6 +117,7 @@
             scroll-snap-stop: always;
             position: relative;
             z-index: 10;
+            overflow: visible;
         }
 
         /* ── HERO FRAME (inside snap-section 1) ── */
@@ -125,13 +126,15 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
+            z-index: 20;
         }
 
         /* ── HERO ── */
         .hero {
             max-width: 600px;
             width: 90%;
-            padding: 48px 40px 28px;
+            padding: 24px 40px 20px;
             text-align: center;
         }
 
@@ -142,12 +145,12 @@
             letter-spacing: 0.15em;
             text-transform: uppercase;
             color: var(--golden-hour);
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             animation: fadeInUp 0.8s ease;
         }
 
         .brand {
-            margin-bottom: 2rem;
+            margin-bottom: 1.25rem;
             animation: fadeInUp 0.8s ease 0.1s both;
         }
 
@@ -384,16 +387,17 @@
             top: 100%;
             left: 0;
             right: 0;
-            background: #052B22;
-            border: 1px solid rgba(189, 250, 124, 0.5);
+            background: #031f19;
+            border: 1px solid rgba(189, 250, 124, 0.4);
             border-top: none;
-            border-radius: 0 0 6px 6px;
+            border-radius: 0 0 8px 8px;
             max-height: 0;
             overflow: hidden;
-            z-index: 9999;
+            z-index: 99999;
+            isolation: isolate;
             transition: max-height 0.3s ease, opacity 0.2s ease;
             opacity: 0;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+            box-shadow: 0 24px 60px rgba(0,0,0,0.98);
         }
 
         .course-dropdown.open {
@@ -496,7 +500,7 @@
         /* ── PARTNER + SOCIAL BLOCK ── */
         .credibility-block {
             position: relative;
-            z-index: 5;
+            z-index: 1;
             width: 90%;
             max-width: 600px;
             padding: 0 40px 36px;
@@ -557,10 +561,11 @@
             width: 38px;
             height: 38px;
             border-radius: 50%;
-            border: 1px solid rgba(241, 255, 221, 0.12);
-            color: rgba(241, 255, 221, 0.45);
+            border: 1px solid rgba(241, 255, 221, 0.25);
+            color: rgba(241, 255, 221, 0.6);
             text-decoration: none;
             transition: all 0.2s ease;
+            background: rgba(241, 255, 221, 0.04);
         }
 
         .social-link:hover {
@@ -575,13 +580,20 @@
             fill: currentColor;
         }
 
+        /* ── ABOUT BLOCK WRAPPER ── */
+        .about-block {
+            width: 90%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+
         /* ── WHAT IS OPENTEE SECTION ── */
         .about-section {
             position: relative;
             z-index: 5;
-            width: 90%;
-            max-width: 600px;
-            padding: 0 40px;
+            width: 100%;
+            padding: 0;
             animation: fadeInUp 0.8s ease 0.6s both;
         }
 
@@ -608,7 +620,9 @@
             font-weight: 400;
             line-height: 1.8;
             color: rgba(241, 255, 221, 0.65);
-            text-align: left;
+            text-align: justify;
+            hyphens: auto;
+            -webkit-hyphens: auto;
         }
 
         .about-copy p {
@@ -628,9 +642,8 @@
         .site-footer {
             position: relative;
             z-index: 5;
-            width: 90%;
-            max-width: 600px;
-            padding: 0 40px;
+            width: 100%;
+            padding: 0;
             text-align: center;
             animation: fadeInUp 0.8s ease 0.7s both;
         }
@@ -675,11 +688,30 @@
         /* ── RESPONSIVE ── */
         @media (max-width: 768px) {
             .hero {
-                padding: 40px 20px 36px;
+                padding: 2px 20px 12px;
             }
 
             .credibility-block {
-                padding: 0 20px 36px;
+                padding: 0 20px 8px;
+            }
+
+            .ngcoa-badge {
+                margin-bottom: 14px;
+                padding: 8px 14px;
+            }
+
+            .social-link {
+                width: 32px;
+                height: 32px;
+            }
+
+            .social-link svg {
+                width: 13px;
+                height: 13px;
+            }
+
+            .social-links {
+                gap: 14px;
             }
 
             .about-section {
@@ -687,22 +719,23 @@
             }
 
             .eyebrow {
-                font-size: 0.75rem;
-                margin-bottom: 1.5rem;
+                font-size: 0.68rem;
+                letter-spacing: 0.12em;
+                margin-bottom: 0.5rem;
             }
 
             .brand svg {
-                max-width: 280px;
+                max-width: 240px;
             }
 
             .tagline {
-                font-size: 2rem;
-                margin-bottom: 1rem;
+                font-size: 1.875rem;
+                margin-bottom: 0.75rem;
             }
 
             .supporting-text {
-                font-size: 1.125rem;
-                margin-bottom: 2.5rem;
+                font-size: 1rem;
+                margin-bottom: 1.75rem;
             }
 
             .input-group {
@@ -846,25 +879,22 @@
 
     <!-- ── SECTION 2: ABOUT + FOOTER ── -->
     <div class="snap-section">
-    <!-- ── WHAT IS OPENTEE ── -->
-    <div class="about-section">
-        <div class="about-rule"></div>
-        <div class="about-label">What is OpenTee?</div>
-        <div class="about-copy">
-            <p><strong>OpenTee is a tee time marketplace built for Austin golfers.</strong></p>
-            <p>Every tee time listed connects directly to the course's tee sheet. What you see is what's actually available — not scraped, not estimated, not stale.</p>
-            <p>Find a time, compare courses, book in under 30 seconds. Courses across Austin in one place, with real photos, current conditions, and weather built in so you know what you're walking into.</p>
-            <p>Every booking earns rewards — across every course, every round. Challenges give you a reason to explore somewhere new. It all compounds over time.</p>
-            <p>And finally, a way to book beyond the standard foursome without calling the pro shop.</p>
+    <div class="about-block">
+        <div class="about-section">
+            <div class="about-rule"></div>
+            <div class="about-label">What is OpenTee?</div>
+            <div class="about-copy">
+                <p><strong>OpenTee is a tee time marketplace built for Austin golfers.</strong></p>
+                <p>Every tee time listed connects directly to the course's tee sheet. What you see is what's actually available — not scraped, not estimated, not stale.</p>
+                <p>Find a time, compare courses, book in under 30 seconds. Courses across Austin in one place, with real photos, current conditions, and weather built in so you know what you're walking into.</p>
+                <p>Every booking earns rewards — across every course, every round. Challenges give you a reason to explore somewhere new. It all compounds over time.</p>
+                <p>And finally, a way to book beyond the standard foursome without calling the pro shop.</p>
+            </div>
         </div>
-    </div>
-
-    <!-- ── FOOTER ── -->
-    <div class="site-footer">
-        <div class="footer-rule"></div>
-        <p class="footer-text">
-            © 2026 OpenTee Booking, Inc. All rights reserved.
-        </p>
+        <div class="site-footer">
+            <div class="footer-rule"></div>
+            <p class="footer-text">© 2026 OpenTee Booking, Inc. All rights reserved.</p>
+        </div>
     </div>
 
     <script>
