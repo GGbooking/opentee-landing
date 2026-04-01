@@ -70,7 +70,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: stretch;
             position: relative;
             overflow-x: hidden;
         }
@@ -103,12 +103,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            z-index: 10;
         }
 
         /* ── HERO ── */
         .hero {
-            position: relative;
-            z-index: 10;
             max-width: 600px;
             width: 90%;
             padding: 60px 40px 48px;
@@ -480,6 +480,7 @@
             padding: 0 40px 48px;
             text-align: center;
             animation: fadeInUp 0.8s ease 0.5s both;
+            align-self: center;
         }
 
         .ngcoa-badge {
@@ -561,6 +562,7 @@
             max-width: 600px;
             padding: 0 40px 72px;
             animation: fadeInUp 0.8s ease 0.6s both;
+            align-self: center;
         }
 
         .about-rule {
@@ -611,6 +613,7 @@
             padding: 0 40px 48px;
             text-align: center;
             animation: fadeInUp 0.8s ease 0.7s both;
+            align-self: center;
         }
 
         .footer-rule {
@@ -782,6 +785,7 @@
             <div class="success-courses" id="successCourses"></div>
         </div>
     </div>
+    </div><!-- end hero-frame -->
 
     <!-- ── NGCOA BADGE + SOCIALS ── -->
     <div class="credibility-block">
